@@ -3,37 +3,11 @@ const url = process.env.NODE_ENV === 'production' ? 'http://104.236.137.60' : 'h
 
 var socket = io.connect(url, {reconnect: true});
 
-// Add a connect listener
-const easymidi = require('easymidi');
-const inputs = easymidi.getInputs();
-const outputs = easymidi.getOutputs();
-
-  // 24 clock pulses per quarter note!
-  // 96 clock pulses per downbeat!
-const PULSES_PER_BEAT = 24;
-console.log(inputs);
-console.log(outputs);
-
-const traktor = new easymidi.Input(inputs[2]);
-let beat = 1;
-let tick = 0;
-let sound = 'tick';
-
 socket.on('connect', () => {
-  traktor.on('clock', () => {
-    if(tick % PULSES_PER_BEAT === 0) {
-      socket.emit('tick', 'traktor', beat);
-      console.log(beat);
-      if(beat === 4) {
-        beat = 1;
-      } else {
-        beat++;
-      }
-    }
-    tick++;
-  });
+  console.log('connected!');
 });
 
 socket.on('tick', (data) => {
+  console.log('do light stuffz!');
   console.log(data);
 });
