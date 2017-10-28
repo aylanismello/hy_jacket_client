@@ -11,11 +11,6 @@ socket.on('connect', () => {
 
   ss(socket).on('audio', function(audioStream, data) {
     console.log('got audio from server!');
-    // console.log('got audio audioStream, piping stream to clients');
-    // ss(socket).emit('audio', relayedAudioStream, { name: 'whatever'})
-    // audioStream.pipe(relayedAudioStream);
-    // // fs.createReadStream(filename).pipe(stream)
-
 
     // THIS IS THE OLD WORKINGCODE
     audioStream.pipe(fs.createWriteStream('./yo.wav'));
@@ -23,6 +18,6 @@ socket.on('connect', () => {
 });
 
 socket.on('tick', (data) => {
-  console.log('do light stuffz!');
+  // console.log('do light stuffz!');
   console.log(data);
 });
